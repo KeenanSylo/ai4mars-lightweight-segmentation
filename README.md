@@ -29,7 +29,7 @@ This repository **does not** redistribute the AI4Mars dataset. Download it direc
 
 > Swan, R. M., Atha, D., Leopold, H. A., Gildner, M., Oij, S., Chiu, C., & Ono, M. (2021).
 > *AI4Mars: A Dataset for Terrain-Aware Autonomous Driving on Mars.*
-> CVPR Workshops 2021. <https://data.nasa.gov/dataset/ai4mars-dataset>
+> CVPR Workshops 2021. <https://data.nasa.gov/dataset/ai4mars-a-dataset-for-terrain-aware-autonomous-driving-on-mars>
 
 Place the Curiosity NAVCAM subset such that the dataset paths used by `MSL_train_preprocessor.py` resolve correctly. The trainer scripts accept dataset roots through their command-line flags.
 
