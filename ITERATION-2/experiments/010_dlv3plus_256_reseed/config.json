@@ -1,0 +1,34 @@
+{
+  "exp_id": "010_dlv3plus_256_reseed",
+  "description": "Reseed verification of 004_dlv3plus_256. Same recipe (DLV3+/MNv3-S/256/CE/bs=8/10ep) but with --seed 123 instead of 42. Tests whether 004 min3 BR_IoU=0.5051 reproduces (mirrors 009 vs 002).",
+  "data": {
+    "data_dir": "MSL_NAVCAM_TRAINING_SET",
+    "num_pairs": 16063,
+    "split": {
+      "train_frac": 0.8,
+      "val_frac": 0.2,
+      "random_state": 123
+    },
+    "input_hw": 256
+  },
+  "model": {
+    "arch": "smp.DeepLabV3Plus",
+    "encoder_name": "tu-mobilenetv3_small_100",
+    "encoder_weights": "imagenet",
+    "in_channels": 3,
+    "classes": 4
+  },
+  "training": {
+    "loss_type": "ce",
+    "loss_summary": "CrossEntropyLoss(ignore_index=255)",
+    "focal_gamma": null,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 8,
+    "num_workers": 4,
+    "epochs": 10,
+    "augmentation": "none",
+    "class_weights": "none",
+    "resampling": "none"
+  }
+}

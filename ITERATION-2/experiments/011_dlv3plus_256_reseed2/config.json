@@ -1,0 +1,34 @@
+{
+  "exp_id": "011_dlv3plus_256_reseed2",
+  "description": "Second reseed of 004_dlv3plus_256. Same recipe (DLV3+/MNv3-S/256/CE/bs=8/10ep) as 004 and 010, with --seed 7. Third sample of the seed distribution after 004 (seed 42, min3 BR=0.51) and 010 (seed 123, min3 BR=0.60), to estimate whether DLV3+/MNv3-S/256\u00b2 genuinely lands min3 BR \u2248 0.5\u20130.6.",
+  "data": {
+    "data_dir": "MSL_NAVCAM_TRAINING_SET",
+    "num_pairs": 16063,
+    "split": {
+      "train_frac": 0.8,
+      "val_frac": 0.2,
+      "random_state": 7
+    },
+    "input_hw": 256
+  },
+  "model": {
+    "arch": "smp.DeepLabV3Plus",
+    "encoder_name": "tu-mobilenetv3_small_100",
+    "encoder_weights": "imagenet",
+    "in_channels": 3,
+    "classes": 4
+  },
+  "training": {
+    "loss_type": "ce",
+    "loss_summary": "CrossEntropyLoss(ignore_index=255)",
+    "focal_gamma": null,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 8,
+    "num_workers": 4,
+    "epochs": 10,
+    "augmentation": "none",
+    "class_weights": "none",
+    "resampling": "none"
+  }
+}

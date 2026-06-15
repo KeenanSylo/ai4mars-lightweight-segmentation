@@ -15,7 +15,8 @@ sgc_evaluate_GOOD_2.0.py       # constraint evaluation + fault injection + shiel
 sgc_evaluate_BAD_2.0.py        # unshielded comparator
 training/                      # losses, augmentations, class-weights helpers
 sgc_cpu_latency/               # single-thread CPU latency measurement (FP32, warm-up discarded)
-MAIN_ITERATION_V2/experiments/ # 16 training runs: config.json, training_history.csv, weights.pth
+ITERATION-2/                   # stage 1: cross-architecture sweep (15 cells, weights + configs)
+MAIN_ITERATION_V2/experiments/ # stage 2: training-configuration sweep (16 runs, weights + configs)
 ML_CHOICE/                     # final chosen models + SGC scorecards
 docs/                          # evaluation protocol notes
 requirements.txt

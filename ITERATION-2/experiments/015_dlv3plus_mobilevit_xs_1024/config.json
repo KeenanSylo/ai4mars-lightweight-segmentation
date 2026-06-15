@@ -1,0 +1,34 @@
+{
+  "exp_id": "015_dlv3plus_mobilevit_xs_1024",
+  "description": "ITERATION-2 / resolution completeness: DeepLabV3+ + MobileViT-XS at 1024x1024 (companion to 005 @ 512 and 014 @ 256). Same 10-epoch / batch-8 / Adam-1e-3 / plain-CE recipe as cells 05 and 014. Note: launched with PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync to work around a host-level NVML bug; this only changes how PyTorch asks the driver for memory and has no effect on training math or comparability with cell 005.",
+  "data": {
+    "data_dir": "MSL_NAVCAM_TRAINING_SET",
+    "num_pairs": 16063,
+    "split": {
+      "train_frac": 0.8,
+      "val_frac": 0.2,
+      "random_state": 42
+    },
+    "input_hw": 1024
+  },
+  "model": {
+    "arch": "smp.DeepLabV3Plus",
+    "encoder_name": "tu-mobilevit_xs",
+    "encoder_weights": "imagenet",
+    "in_channels": 3,
+    "classes": 4
+  },
+  "training": {
+    "loss_type": "ce",
+    "loss_summary": "CrossEntropyLoss(ignore_index=255)",
+    "focal_gamma": null,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 8,
+    "num_workers": 4,
+    "epochs": 10,
+    "augmentation": "none",
+    "class_weights": "none",
+    "resampling": "none"
+  }
+}

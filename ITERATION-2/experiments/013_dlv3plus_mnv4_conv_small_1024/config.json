@@ -1,0 +1,34 @@
+{
+  "exp_id": "013_dlv3plus_mnv4_conv_small_1024",
+  "description": "ITERATION-2 / resolution completeness: DeepLabV3+ + MobileNetV4-conv-small at 1024x1024 (companion to 006 @ 512 and 012 @ 256). Same 10-epoch / batch-8 / Adam-1e-3 / plain-CE recipe as cell 01. Tests whether the 1024-input plateau seen on MNv3-S also holds for MNv4-Conv-Small.",
+  "data": {
+    "data_dir": "MSL_NAVCAM_TRAINING_SET",
+    "num_pairs": 16063,
+    "split": {
+      "train_frac": 0.8,
+      "val_frac": 0.2,
+      "random_state": 42
+    },
+    "input_hw": 1024
+  },
+  "model": {
+    "arch": "smp.DeepLabV3Plus",
+    "encoder_name": "tu-mobilenetv4_conv_small",
+    "encoder_weights": "imagenet",
+    "in_channels": 3,
+    "classes": 4
+  },
+  "training": {
+    "loss_type": "ce",
+    "loss_summary": "CrossEntropyLoss(ignore_index=255)",
+    "focal_gamma": null,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 8,
+    "num_workers": 4,
+    "epochs": 10,
+    "augmentation": "none",
+    "class_weights": "none",
+    "resampling": "none"
+  }
+}

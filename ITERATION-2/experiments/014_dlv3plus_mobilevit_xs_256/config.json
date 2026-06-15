@@ -1,0 +1,34 @@
+{
+  "exp_id": "014_dlv3plus_mobilevit_xs_256",
+  "description": "ITERATION-2 / resolution completeness: DeepLabV3+ + MobileViT-XS at 256x256 (companion to 005 @ 512). Same 10-epoch / batch-8 / Adam-1e-3 / plain-CE recipe. Tests whether the hybrid CNN+transformer encoder follows the MNv3-S resolution-peak pattern or the MNv4-S monotone-up pattern at low resolution.",
+  "data": {
+    "data_dir": "MSL_NAVCAM_TRAINING_SET",
+    "num_pairs": 16063,
+    "split": {
+      "train_frac": 0.8,
+      "val_frac": 0.2,
+      "random_state": 42
+    },
+    "input_hw": 256
+  },
+  "model": {
+    "arch": "smp.DeepLabV3Plus",
+    "encoder_name": "tu-mobilevit_xs",
+    "encoder_weights": "imagenet",
+    "in_channels": 3,
+    "classes": 4
+  },
+  "training": {
+    "loss_type": "ce",
+    "loss_summary": "CrossEntropyLoss(ignore_index=255)",
+    "focal_gamma": null,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 8,
+    "num_workers": 4,
+    "epochs": 10,
+    "augmentation": "none",
+    "class_weights": "none",
+    "resampling": "none"
+  }
+}
