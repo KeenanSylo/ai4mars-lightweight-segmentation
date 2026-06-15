@@ -1,6 +1,6 @@
 # final_model — Locked-in model checkpoints + evaluations
 
-> **⚠️ Note on terminology.** The code in this folder uses **SGC** (Space-Grade Constraint, numbered `#1`–`#4`) as shorthand for the four deployment-relevant constraints evaluated against the chosen model. The thesis refers to these as "space-grade constraint 1" through "space-grade constraint 4" or "the four constraints". The mapping is:
+> **Note on terminology.** The code in this folder uses **SGC** (Space-Grade Constraint, numbered `#1`–`#4`) as shorthand for the four deployment-relevant constraints evaluated against the chosen model. The thesis refers to these as "space-grade constraint 1" through "space-grade constraint 4" or "the four constraints". The mapping is:
 >
 > | Code (here) | Thesis | What it measures |
 > |---|---|---|
