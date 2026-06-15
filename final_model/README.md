@@ -1,5 +1,16 @@
 # final_model — Locked-in model checkpoints + evaluations
 
+> **⚠️ Note on terminology.** The code in this folder uses **SGC** (Space-Grade Constraint, numbered `#1`–`#4`) as shorthand for the four deployment-relevant constraints evaluated against the chosen model. The thesis refers to these as "space-grade constraint 1" through "space-grade constraint 4" or "the four constraints". The mapping is:
+>
+> | Code (here) | Thesis | What it measures |
+> |---|---|---|
+> | **SGC #1** | constraint 1 | parameter count |
+> | **SGC #2** | constraint 2 | worst-case CPU latency |
+> | **SGC #3** | constraint 3 | peak segmentation-tensor memory |
+> | **SGC #4** | constraint 4 | survivability under simulated radiation faults |
+>
+> See [`../docs/constraints.md`](../docs/constraints.md) for the formal definition of each constraint, its threshold, and the rationale.
+
 This folder contains the **three candidate model checkpoints** evaluated as the final deployable for the thesis, along with their FP32 test-set evaluations and SGC hardware-budget scorecards.
 
 The naming convention is `<version_run>_<encoder>_<resolution>_<descriptor>` so every file self-describes its provenance.
