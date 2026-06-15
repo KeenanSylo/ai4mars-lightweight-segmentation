@@ -20,7 +20,7 @@ See also: [`architecture_sweep/cells_in_use.md`](architecture_sweep/cells_in_use
 
 The architecture sweep evaluates DeepLabv3+ and FPN decoders paired with MobileNetV3-Small and MobileNetV4-Conv-Small encoders across three input resolutions (256, 512, 1024). The folder contains 15 trained cells. The thesis reports on 9 of them as the 3×3 grid that the architecture-lever analysis runs on.
 
-### ✅ Included (9 cells — thesis Table 5.2)
+### Included (9 cells — thesis Table 5.2)
 
 | Cell | Decoder | Encoder | Resolution | Role |
 |---|---|---|---|---|
@@ -34,7 +34,7 @@ The architecture sweep evaluates DeepLabv3+ and FPN decoders paired with MobileN
 | 12 | DLV3+ | **MobileNetV4-Conv-Small** | 256 | MNv4-S resolution sweep (low) |
 | 13 | DLV3+ | **MobileNetV4-Conv-Small** | 1024 | **chosen architecture** for the training-configuration stage |
 
-### ❌ Excluded (6 cells, kept in the folder for transparency)
+### Excluded (6 cells, kept in the folder for transparency)
 
 | Cell | Configuration | Reason for exclusion |
 |---|---|---|
@@ -51,7 +51,7 @@ The architecture sweep evaluates DeepLabv3+ and FPN decoders paired with MobileN
 
 The training-configuration sweep locks the architecture to the strongest cell from Stage 1 (DeepLabv3+ with MobileNetV4-Conv-Small) and varies the loss function, the augmentation pipeline, the training resolution, and the training duration.
 
-### ✅ Included (16 runs — thesis Tables 5.3 and 5.4)
+### Included (16 runs — thesis Tables 5.3 and 5.4)
 
 Eight training configurations evaluated at two resolutions (1024 and 512):
 
@@ -74,7 +74,7 @@ The strongest run by validation Big Rock IoU is R11. Both its 1024 and 512 varia
 
 Stage 3 takes the two strongest runs from Stage 2 and evaluates them under the four deployment-relevant constraints (parameter count, latency, memory, survivability under simulated radiation faults). Final test-set numbers and the constraint scorecards are in this folder.
 
-### ✅ Included
+### Included
 
 | Artifact | Role | Test Big Rock IoU |
 |---|---|---|
