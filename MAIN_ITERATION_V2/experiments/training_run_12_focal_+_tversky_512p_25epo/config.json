@@ -1,0 +1,40 @@
+{
+  "exp_id": "training_run_12_focal_+_tversky_512p_25epo",
+  "description": "v2 R12 mirror at 512 (ft 0.3/0.7, no aug, 25ep) on MNv4-S - tversky no-aug control",
+  "data": {
+    "data_dir": "MSL_NAVCAM_TRAINING_SET",
+    "num_pairs": 16063,
+    "split": {
+      "train_frac": 0.8,
+      "val_frac": 0.2,
+      "random_state": 42
+    },
+    "input_hw": 512
+  },
+  "model": {
+    "arch": "smp.DeepLabV3Plus",
+    "encoder_name": "tu-mobilenetv4_conv_small",
+    "encoder_weights": "imagenet",
+    "in_channels": 3,
+    "classes": 4
+  },
+  "training": {
+    "loss_type": "focal_tversky",
+    "loss_summary": "0.50*FocalLoss(gamma=2.0) + 0.50*TverskyLoss(alpha=0.3, beta=0.7), ignore_index=255",
+    "focal_gamma": 2.0,
+    "focal_dice_alpha": null,
+    "focal_tversky_alpha": 0.5,
+    "tversky_alpha": 0.3,
+    "tversky_beta": 0.7,
+    "ftl_gamma": null,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 16,
+    "num_workers": 8,
+    "epochs": 25,
+    "augmentation": "none",
+    "class_weights": "none",
+    "resampling": "none",
+    "early_stop_patience": 0
+  }
+}

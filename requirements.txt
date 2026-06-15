@@ -1,0 +1,15 @@
+torch
+torchvision
+segmentation-models-pytorch
+torchinfo
+onnx
+onnxruntime
+onnxscript
+numpy
+pandas
+opencv-python-headless
+albumentations
+scikit-learn
+tqdm
+matplotlib
+psutil

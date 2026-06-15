@@ -1,0 +1,83 @@
+{
+  "exp_id": "training_run_2_weighted_ce_1024p",
+  "description": "v2 mirror of v1 run 2 (weighted CE, 15ep, no aug) on MNv4-S @ 1024 - stage 1 loss family baseline",
+  "data": {
+    "data_dir": "MSL_NAVCAM_TRAINING_SET",
+    "num_pairs": 16063,
+    "split": {
+      "train_frac": 0.8,
+      "val_frac": 0.2,
+      "random_state": 42
+    },
+    "input_hw": 1024
+  },
+  "model": {
+    "arch": "smp.DeepLabV3Plus",
+    "encoder_name": "tu-mobilenetv4_conv_small",
+    "encoder_weights": "imagenet",
+    "in_channels": 3,
+    "classes": 4
+  },
+  "training": {
+    "loss_type": "ce",
+    "loss_summary": "CrossEntropyLoss(ignore_index=255) + class weights",
+    "focal_gamma": null,
+    "focal_dice_alpha": null,
+    "focal_tversky_alpha": null,
+    "tversky_alpha": null,
+    "tversky_beta": null,
+    "ftl_gamma": null,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 16,
+    "num_workers": 8,
+    "epochs": 15,
+    "augmentation": "none",
+    "class_weights": {
+      "source": "MSL_NAVCAM_TRAINING_SET/class_weights_train.json",
+      "values": [
+        0.6712636947631836,
+        0.502008318901062,
+        2.077204704284668,
+        27.131677627563477
+      ],
+      "meta": {
+        "data_dir": "MSL_NAVCAM_TRAINING_SET",
+        "num_labels_scanned": 16063,
+        "total_valid_pixels": 9357780461,
+        "class_names": [
+          "soil",
+          "bedrock",
+          "sand",
+          "big_rock"
+        ],
+        "pixel_counts": {
+          "soil": 3485135841,
+          "bedrock": 4660172207,
+          "sand": 1126246813,
+          "big_rock": 86225600
+        },
+        "fractions": {
+          "soil": 0.3724318876174584,
+          "bedrock": 0.49799973684165705,
+          "sand": 0.12035405379446634,
+          "big_rock": 0.009214321746418239
+        },
+        "balanced_weights": {
+          "soil": 0.6712636947631836,
+          "bedrock": 0.502008318901062,
+          "sand": 2.077204704284668,
+          "big_rock": 27.131677627563477
+        },
+        "weights_list": [
+          0.6712636947631836,
+          0.502008318901062,
+          2.077204704284668,
+          27.131677627563477
+        ]
+      }
+    },
+    "resampling": "none",
+    "early_stop_patience": 0
+  }
+}

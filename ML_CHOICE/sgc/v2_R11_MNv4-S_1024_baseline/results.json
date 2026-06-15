@@ -1,0 +1,215 @@
+{
+  "run_id": "v2_R11_baseline",
+  "mode": "baseline_fp32",
+  "weights": "ML_CHOICE/v2_R11_MNv4-S_1024.pth",
+  "arch": "smp.DeepLabV3Plus",
+  "encoder": "tu-mobilenetv4_conv_small",
+  "eval_input_hw": 1024,
+  "eval_strategy": "Strategy A: resize EDR to input_hw, predict, upsample logits to gold-label native, then argmax + score",
+  "param_count": 2999220,
+  "sgc_lightweight_cap": 3000000,
+  "sgc_lightweight_pass": true,
+  "variants": {
+    "masked-gold-min1-100agree_op1": {
+      "confusion_matrix": [
+        [
+          83541094,
+          4507404,
+          1024664,
+          22987
+        ],
+        [
+          2701677,
+          55787023,
+          440316,
+          1086937
+        ],
+        [
+          251909,
+          4856655,
+          39558058,
+          107730
+        ],
+        [
+          59919,
+          106071,
+          16009,
+          200234
+        ]
+      ],
+      "class_names": [
+        "soil",
+        "bedrock",
+        "sand",
+        "big_rock"
+      ],
+      "pixel_accuracy": 0.9218490728770922,
+      "mean_iou": 0.6725479476153432,
+      "per_class_iou": {
+        "soil": 0.9069743547185618,
+        "bedrock": 0.8028517451472981,
+        "sand": 0.855210601517347,
+        "big_rock": 0.12515508907816614
+      },
+      "per_class_precision": {
+        "soil": 0.9651837679936568,
+        "bedrock": 0.8548798167765609,
+        "sand": 0.9639126853993466,
+        "big_rock": 0.14121989889187297
+      },
+      "per_class_recall": {
+        "soil": 0.937651008911732,
+        "bedrock": 0.9295365683854091,
+        "sand": 0.8834981687730511,
+        "big_rock": 0.5238532518123762
+      },
+      "per_class_support": {
+        "soil": 89096149,
+        "bedrock": 60015953,
+        "sand": 44774352,
+        "big_rock": 382233
+      },
+      "num_images": 322,
+      "sgc_latency_avg_ms": 16.40969026914757,
+      "sgc_latency_max_ms": 577.6781868189573,
+      "sgc_latency_pass": false,
+      "sgc_total_python_ram_mb": 1441.48046875,
+      "sgc_true_ml_ram_mb": 406.59765625,
+      "sgc_ram_pass": false
+    },
+    "masked-gold-min2-100agree_op1": {
+      "confusion_matrix": [
+        [
+          78070260,
+          1570435,
+          592950,
+          11247
+        ],
+        [
+          1461717,
+          42395976,
+          149187,
+          715538
+        ],
+        [
+          134349,
+          1945149,
+          36218182,
+          34936
+        ],
+        [
+          7539,
+          12267,
+          3060,
+          106791
+        ]
+      ],
+      "class_names": [
+        "soil",
+        "bedrock",
+        "sand",
+        "big_rock"
+      ],
+      "pixel_accuracy": 0.9593808300912081,
+      "mean_iou": 0.7197833390675932,
+      "per_class_iou": {
+        "soil": 0.9538386514293598,
+        "bedrock": 0.878668179031292,
+        "sand": 0.926822133060517,
+        "big_rock": 0.11980439274920404
+      },
+      "per_class_precision": {
+        "soil": 0.9798728855440865,
+        "bedrock": 0.9231803786735805,
+        "sand": 0.9798395866351937,
+        "big_rock": 0.12295857742898199
+      },
+      "per_class_recall": {
+        "soil": 0.9729000569905434,
+        "bedrock": 0.9479804066050275,
+        "sand": 0.9448398199590656,
+        "big_rock": 0.8236423795090122
+      },
+      "per_class_support": {
+        "soil": 80244892,
+        "bedrock": 44722418,
+        "sand": 38332616,
+        "big_rock": 129657
+      },
+      "num_images": 321,
+      "sgc_latency_avg_ms": 16.39456660892942,
+      "sgc_latency_max_ms": 33.4734118077904,
+      "sgc_latency_pass": true,
+      "sgc_total_python_ram_mb": 1442.2421875,
+      "sgc_true_ml_ram_mb": 406.59765625,
+      "sgc_ram_pass": false
+    },
+    "masked-gold-min3-100agree_op1": {
+      "confusion_matrix": [
+        [
+          59269393,
+          436262,
+          363364,
+          0
+        ],
+        [
+          502606,
+          25605821,
+          21799,
+          62713
+        ],
+        [
+          30717,
+          763521,
+          29826244,
+          19423
+        ],
+        [
+          951,
+          0,
+          0,
+          76747
+        ]
+      ],
+      "class_names": [
+        "soil",
+        "bedrock",
+        "sand",
+        "big_rock"
+      ],
+      "pixel_accuracy": 0.9811817040414437,
+      "mean_iou": 0.8385708451208508,
+      "per_class_iou": {
+        "soil": 0.9779896448861285,
+        "bedrock": 0.9347673079002518,
+        "sand": 0.9613595045142206,
+        "big_rock": 0.48016692318280213
+      },
+      "per_class_precision": {
+        "soil": 0.9910662000040901,
+        "bedrock": 0.9552413368488172,
+        "sand": 0.9872510737417823,
+        "big_rock": 0.4830409798405116
+      },
+      "per_class_recall": {
+        "soil": 0.986688212770713,
+        "bedrock": 0.9775848750688115,
+        "sand": 0.9734444019979827,
+        "big_rock": 0.9877603027104945
+      },
+      "per_class_support": {
+        "soil": 60069019,
+        "bedrock": 26192939,
+        "sand": 30639905,
+        "big_rock": 77698
+      },
+      "num_images": 287,
+      "sgc_latency_avg_ms": 17.668315033405655,
+      "sgc_latency_max_ms": 46.51215812191367,
+      "sgc_latency_pass": true,
+      "sgc_total_python_ram_mb": 1444.51953125,
+      "sgc_true_ml_ram_mb": 406.59765625,
+      "sgc_ram_pass": false
+    }
+  }
+}

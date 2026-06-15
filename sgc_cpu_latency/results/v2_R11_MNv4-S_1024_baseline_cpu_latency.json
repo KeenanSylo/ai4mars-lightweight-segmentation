@@ -1,0 +1,23 @@
+{
+  "run_name": "v2_R11_MNv4-S_1024_baseline",
+  "mode": "baseline",
+  "device": "cpu",
+  "torch_num_threads": 1,
+  "torch_num_interop_threads": 1,
+  "dtype": "fp32",
+  "weights": "ML_CHOICE/v2_R11_MNv4-S_1024.pth",
+  "encoder": "tu-mobilenetv4_conv_small",
+  "input_hw": 1024,
+  "variant": "masked-gold-min3-100agree_op1",
+  "param_count": 2999220,
+  "max_flips": null,
+  "frames_timed": 287,
+  "warmup_discarded": true,
+  "sgc2_latency_avg_ms": 1089.6675320778638,
+  "sgc2_latency_p95_ms": 1235.6085310922936,
+  "sgc2_latency_p99_ms": 1269.0620487416163,
+  "sgc2_latency_max_ms": 1275.2769829239696,
+  "sgc2_cap_ms": 500,
+  "sgc2_latency_pass": false,
+  "wall_clock_seconds": 324.7648322000168
+}

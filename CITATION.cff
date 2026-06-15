@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the thesis below."
+title: "Terrain Detection for Autonomous Martian Rover Exploration: Optimizing Big Rock Detection via Machine Learning under Space-grade Constraints"
+authors:
+  - family-names: Arsianto
+    given-names: Keenan Syahlevi
+  - family-names: Devanaboina
+    given-names: Yashwanth Krishna
+type: thesis
+thesis-type: "Bachelor's thesis"
+institution:
+  name: Linnaeus University
+  city: Vaxjo
+  country: SE
+year: 2026
+license: MIT
+repository-code: "https://github.com/KeenanSylo/ai4mars-lightweight-segmentation"
+keywords:
+  - semantic segmentation
+  - AI4Mars
+  - Mars rover
+  - rare-class detection
+  - class imbalance
+  - lightweight models
+  - deployment-aware machine learning

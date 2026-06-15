@@ -1,0 +1,47 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+space_venv/
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.claude/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Notebook ---
+.ipynb_checkpoints/
+
+# --- Project-specific ---
+# AI4Mars images and labels are not redistributed; download from NASA JPL.
+data/
+MSL_NAVCAM_TRAINING_SET/
+MSL_NAVCAM_TEST_SET/
+
+# Per-epoch checkpoints (only weights.pth and ML_CHOICE/*.pth are kept)
+**/checkpoints/
+
+# Training-loop runtime artefacts
+*.pid
+*_queue.log
+**/train.log
+
+# Anything copied locally for ad-hoc debugging
+scratch/
+tmp/
