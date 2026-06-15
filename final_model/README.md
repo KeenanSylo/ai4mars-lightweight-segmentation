@@ -19,7 +19,7 @@ The naming convention is `<version_run>_<encoder>_<resolution>_<descriptor>` so 
 |---|---|---|---|
 | previous deployable (v1 baseline) | `v1_R9_MNv3-S_512.pth` | 0.325 | ✓ passes 3 hardware constraints (#4 not re-tested) |
 | research ceiling (best accuracy, fails memory cap) | `v2_R11_MNv4-S_1024.pth` | 0.480 | ✗ fails SGC #3 (406 MB > 256 MB) |
-| ⭐ **chosen deployable** | **`v2_R11_MNv4-S_512.pth`** | **0.446** | **✓ passes ALL 4 SGCs** (hardware + survivability) |
+| **chosen deployable** | **`v2_R11_MNv4-S_512.pth`** | **0.446** | **✓ passes ALL 4 SGCs** (hardware + survivability) |
 
 ## Files (renamed for consistency)
 
@@ -119,7 +119,7 @@ Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversk
 
 Why excluded from the deployable set: the model achieves the strongest accuracy in the project (test BR 0.480, mIoU 0.839) but its peak segmentation-tensor RAM at 1024² input exceeds the SGC #3 cap by 150 MB. Following the precedent set in architecture_sweep Cell 05 (MobileViT-XS @ 512, also memory-cap excluded), this model is reported as the research ceiling rather than the deployment candidate.
 
-## v2 R11 @ 512 - `v2_R11_MNv4-S_512.pth` ⭐ Chosen deployable
+## v2 R11 @ 512 - `v2_R11_MNv4-S_512.pth` Chosen deployable
 
 Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversky_512p_aug_B/`
 
