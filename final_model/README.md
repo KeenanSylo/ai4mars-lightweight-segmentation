@@ -1,4 +1,4 @@
-# ML_CHOICE — Locked-in model checkpoints + evaluations
+# final_model — Locked-in model checkpoints + evaluations
 
 This folder contains the **three candidate model checkpoints** evaluated as the final deployable for the thesis, along with their FP32 test-set evaluations and SGC hardware-budget scorecards.
 
@@ -13,7 +13,7 @@ The naming convention is `<version_run>_<encoder>_<resolution>_<descriptor>` so 
 ## Files (renamed for consistency)
 
 ```
-ML_CHOICE/
+final_model/
 ├── README.md                                       (this file)
 │
 ├── v1_R9_MNv3-S_512.pth                            8.8 MB — v1 winner (MNv3-S/512)
@@ -72,7 +72,7 @@ Source: `MAIN_ITERATION/experiments/training_run_9_focal_+_tversky_512p_+++/`
 
 ## v2 R11 @ 1024 — `v2_R11_MNv4-S_1024.pth`
 
-Source: `MAIN_ITERATION_V2/experiments/training_run_11_focal_+_tversky_1024p_aug_B/`
+Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversky_1024p_aug_B/`
 
 **Research ceiling — not deployable (fails SGC #3 memory cap).**
 
@@ -106,11 +106,11 @@ Source: `MAIN_ITERATION_V2/experiments/training_run_11_focal_+_tversky_1024p_aug
 | #2 Max latency / frame | ≤ 500 ms | 46.51 ms | ✓ |
 | **#3 Peak ML RAM** | **≤ 256 MB** | **406.60 MB** | **✗ FAIL** (+150 MB over cap) |
 
-Why excluded from the deployable set: the model achieves the strongest accuracy in the project (test BR 0.480, mIoU 0.839) but its peak segmentation-tensor RAM at 1024² input exceeds the SGC #3 cap by 150 MB. Following the precedent set in ITERATION-2 Cell 05 (MobileViT-XS @ 512, also memory-cap excluded), this model is reported as the research ceiling rather than the deployment candidate.
+Why excluded from the deployable set: the model achieves the strongest accuracy in the project (test BR 0.480, mIoU 0.839) but its peak segmentation-tensor RAM at 1024² input exceeds the SGC #3 cap by 150 MB. Following the precedent set in architecture_sweep Cell 05 (MobileViT-XS @ 512, also memory-cap excluded), this model is reported as the research ceiling rather than the deployment candidate.
 
 ## v2 R11 @ 512 — `v2_R11_MNv4-S_512.pth` ⭐ Chosen deployable
 
-Source: `MAIN_ITERATION_V2/experiments/training_run_11_focal_+_tversky_512p_aug_B/`
+Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversky_512p_aug_B/`
 
 | | |
 |---|---|
@@ -210,7 +210,7 @@ Hardware:
 
 - All `.pth` files are **copies**, not symlinks. The source experiments' `weights.pth` files are unchanged.
 - Each `weights.pth` was materialized by `select_best.py --metric val_iou_big_rock --force` from per-epoch checkpoints (also unchanged in the source experiments). Re-running the same command reproduces the same checkpoint deterministically.
-- Each `*_evaluation_results.json` was produced by `ITERATION-2/evaluate.py` against the AI4Mars MSL NCAM gold expert test set (`MSL_NAVCAM_TEST_SET/`) using the Strategy-A evaluation methodology: model predictions are upsampled from the model's input resolution to the gold label's native resolution before computing IoU against the unaltered ground truth.
+- Each `*_evaluation_results.json` was produced by `architecture_sweep/evaluate.py` against the AI4Mars MSL NCAM gold expert test set (`MSL_NAVCAM_TEST_SET/`) using the Strategy-A evaluation methodology: model predictions are upsampled from the model's input resolution to the gold label's native resolution before computing IoU against the unaltered ground truth.
 - Each baseline `sgc/*_baseline/results.json` was produced by `sgc_evaluate_GOOD.py` (no fault injection), with `param_count`, `sgc_latency_max_ms`, and `sgc_true_ml_ram_mb` measured per-variant. Latency and peak ML RAM are measured on the host GPU since the latency convention in the thesis is FP32 PyTorch single-thread (the script measures on whichever device is available).
 - Each chaos `sgc/*_chaos/results.json` was produced by `sgc_evaluate_BAD_2.0.py` (radiation, no defence) or `sgc_evaluate_GOOD_2.0.py` (radiation + BoundsCheckShield + TMR vote) with `--max-flips 50` to match MobileNetV4-Conv-Small's deepest-feature channel width. Both scripts target the deepest encoder feature and skip zero-valued indices (patched versions; see commit history of the script files for the inline rationale).
 - All baseline result sets cover the three gold variants (min1-100agree, min2-100agree, min3-100agree). Chaos result sets are reported on the headline min3-100agree variant.
@@ -220,23 +220,23 @@ Hardware:
 For test-set evaluation against the gold expert set:
 ```bash
 PYTHONPATH=. \
-  .venv/bin/python ITERATION-2/evaluate.py \
-  --weights ML_CHOICE/v2_R11_MNv4-S_512.pth \
+  .venv/bin/python architecture_sweep/evaluate.py \
+  --weights final_model/v2_R11_MNv4-S_512.pth \
   --arch smp.DeepLabV3Plus \
   --encoder tu-mobilenetv4_conv_small \
   --input-hw 512 \
-  --output ML_CHOICE/v2_R11_MNv4-S_512_evaluation_results.json
+  --output final_model/v2_R11_MNv4-S_512_evaluation_results.json
 ```
 
 For SGC baseline scorecard:
 ```bash
 PYTHONPATH=. \
   .venv/bin/python sgc_evaluate_GOOD.py \
-  --weights ML_CHOICE/v2_R11_MNv4-S_512.pth \
+  --weights final_model/v2_R11_MNv4-S_512.pth \
   --encoder tu-mobilenetv4_conv_small \
   --input-hw 512 \
   --run-id v2_R11_MNv4-S_512_baseline \
-  --results-root ML_CHOICE/sgc
+  --results-root final_model/sgc
 ```
 
 For SGC #4 survivability (already run with `--max-flips 50` for MNv4-S channel-width):
@@ -244,28 +244,28 @@ For SGC #4 survivability (already run with `--max-flips 50` for MNv4-S channel-w
 # unshielded chaos
 PYTHONPATH=. \
   .venv/bin/python sgc_evaluate_BAD_2.0.py \
-  --weights ML_CHOICE/v2_R11_MNv4-S_512.pth \
+  --weights final_model/v2_R11_MNv4-S_512.pth \
   --encoder tu-mobilenetv4_conv_small \
   --input-hw 512 \
   --max-flips 50 \
   --run-id v2_R11_MNv4-S_512_unshielded_chaos \
-  --results-root ML_CHOICE/sgc
+  --results-root final_model/sgc
 
 # shielded chaos (TMR + clamping)
 PYTHONPATH=. \
   .venv/bin/python sgc_evaluate_GOOD_2.0.py \
-  --weights ML_CHOICE/v2_R11_MNv4-S_512.pth \
+  --weights final_model/v2_R11_MNv4-S_512.pth \
   --encoder tu-mobilenetv4_conv_small \
   --input-hw 512 \
   --max-flips 50 \
   --run-id v2_R11_MNv4-S_512_shielded_chaos \
-  --results-root ML_CHOICE/sgc
+  --results-root final_model/sgc
 ```
 
 Or to re-run the in-place `evaluate.py` workflow (uses the matching `weights.pth` inside the source experiment folder):
 ```bash
 PYTHONPATH=. \
-  .venv/bin/python ITERATION-2/evaluate.py \
+  .venv/bin/python architecture_sweep/evaluate.py \
   --exp-id training_run_11_focal_+_tversky_512p_aug_B \
-  --exp-root MAIN_ITERATION_V2/experiments
+  --exp-root training_configuration_sweep/experiments
 ```

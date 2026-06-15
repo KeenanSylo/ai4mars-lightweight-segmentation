@@ -7,21 +7,20 @@ The thesis investigates how architectural and training-related design choices af
 ## Repository contents
 
 ```
-DLV3+_MNv4_small_trainer.py    # main trainer (DeepLabv3+ + MobileNetV4-Conv-Small)
-DLV3+_MNV3_small_trainer.py    # sister trainer for the MobileNetV3-Small encoder
-MSL_train_preprocessor.py      # PyTorch Dataset for AI4Mars Curiosity NAVCAM
-metrics.py                     # per-class IoU / precision / recall / F1 from confusion matrix
-sgc_evaluate_GOOD_2.0.py       # constraint evaluation + fault injection + shielded TMR
-sgc_evaluate_BAD_2.0.py        # unshielded comparator
-training/                      # losses, augmentations, class-weights helpers
-sgc_cpu_latency/               # single-thread CPU latency measurement (FP32, warm-up discarded)
-ITERATION-2/                   # stage 1: cross-architecture sweep (15 cells, weights + configs)
-MAIN_ITERATION_V2/experiments/ # stage 2: training-configuration sweep (16 runs, weights + configs)
-ML_CHOICE/                     # final chosen models + SGC scorecards
-docs/                          # evaluation protocol notes
+DLV3+_MNv4_small_trainer.py        # main trainer (DeepLabv3+ + MobileNetV4-Conv-Small)
+DLV3+_MNV3_small_trainer.py        # sister trainer for the MobileNetV3-Small encoder
+MSL_train_preprocessor.py          # PyTorch Dataset for AI4Mars Curiosity NAVCAM
+metrics.py                         # per-class IoU / precision / recall / F1 from confusion matrix
+sgc_evaluate_GOOD_2.0.py           # constraint evaluation + fault injection + shielded TMR
+sgc_evaluate_BAD_2.0.py            # unshielded comparator
+training/                          # losses, augmentations, class-weights helpers
+cpu_latency_eval/                  # single-thread CPU latency measurement (FP32, warm-up discarded)
+architecture_sweep/                # stage 1: cross-architecture sweep (15 cells, weights + configs)
+training_configuration_sweep/      # stage 2: training-configuration sweep (16 runs, weights + configs)
+final_model/                       # final chosen models + per-constraint scorecards
+docs/                              # evaluation protocol notes
+thesis_scope.md                    # scope map of which experiments are in scope for the thesis
 requirements.txt
-sgcInfo.md                     # design notes for the deployment constraints
-thesis_scope.md                # scope decisions for the controlled experiment
 ```
 
 ## Dataset
@@ -46,23 +45,23 @@ Tested with Python 3.12 and PyTorch with CUDA support on the training side, CPU 
 
 ## Reproducing the headline result (Big Rock IoU 0.446)
 
-The chosen final model is **Run 11** with DeepLabv3+ on MobileNetV4-Conv-Small at 512×512 input, trained for 25 epochs with focal-Tversky (`alpha=0.3`, `beta=0.7`) and basic augmentation. The corresponding checkpoint is `ML_CHOICE/v2_R11_MNv4-S_512.pth`.
+The chosen final model is **Run 11** with DeepLabv3+ on MobileNetV4-Conv-Small at 512×512 input, trained for 25 epochs with focal-Tversky (`alpha=0.3`, `beta=0.7`) and basic augmentation. The corresponding checkpoint is `final_model/v2_R11_MNv4-S_512.pth`.
 
 To re-evaluate it on the gold expert test set:
 
 ```bash
 python sgc_evaluate_GOOD_2.0.py \
-    --weights ML_CHOICE/v2_R11_MNv4-S_512.pth \
+    --weights final_model/v2_R11_MNv4-S_512.pth \
     --encoder tu-mobilenetv4_conv_small \
     --input-hw 512
 ```
 
-To re-train from scratch on a single GPU, see the `config.json` inside the matching run folder under `MAIN_ITERATION_V2/experiments/training_run_11_focal_+_tversky_512p_aug_B/` for the exact CLI flags.
+To re-train from scratch on a single GPU, see the `config.json` inside the matching run folder under `training_configuration_sweep/experiments/training_run_11_focal_+_tversky_512p_aug_B/` for the exact CLI flags.
 
 For the CPU-only latency measurement reported in Table 5.6 of the thesis:
 
 ```bash
-python sgc_cpu_latency/latency_cpu.py --weights ML_CHOICE/v2_R11_MNv4-S_512.pth
+python cpu_latency_eval/latency_cpu.py --weights final_model/v2_R11_MNv4-S_512.pth
 ```
 
 ## Citation
