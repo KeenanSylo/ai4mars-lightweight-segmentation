@@ -1,4 +1,4 @@
-# Thesis Scope — Inclusion/Exclusion Map
+# Thesis Scope - Inclusion/Exclusion Map
 
 This document records which of the experiments in this repository are **primary evidence** in the thesis and which were run but **excluded** from the headline analysis, with the rationale for each exclusion. The goal is to keep the empirical record transparent without inflating the thesis narrative with experiments that do not load-bear a research question.
 
@@ -16,11 +16,11 @@ See also: [`architecture_sweep/cells_in_use.md`](architecture_sweep/cells_in_use
 
 ---
 
-## Stage 1 — Architecture sweep ([`architecture_sweep/`](architecture_sweep/))
+## Stage 1 - Architecture sweep ([`architecture_sweep/`](architecture_sweep/))
 
 The architecture sweep evaluates DeepLabv3+ and FPN decoders paired with MobileNetV3-Small and MobileNetV4-Conv-Small encoders across three input resolutions (256, 512, 1024). The folder contains 15 trained cells. The thesis reports on 9 of them as the 3×3 grid that the architecture-lever analysis runs on.
 
-### Included (9 cells — thesis Table 5.2)
+### Included (9 cells - thesis Table 5.2)
 
 | Cell | Decoder | Encoder | Resolution | Role |
 |---|---|---|---|---|
@@ -47,11 +47,11 @@ The architecture sweep evaluates DeepLabv3+ and FPN decoders paired with MobileN
 
 ---
 
-## Stage 2 — Training-configuration sweep ([`training_configuration_sweep/`](training_configuration_sweep/))
+## Stage 2 - Training-configuration sweep ([`training_configuration_sweep/`](training_configuration_sweep/))
 
 The training-configuration sweep locks the architecture to the strongest cell from Stage 1 (DeepLabv3+ with MobileNetV4-Conv-Small) and varies the loss function, the augmentation pipeline, the training resolution, and the training duration.
 
-### Included (16 runs — thesis Tables 5.3 and 5.4)
+### Included (16 runs - thesis Tables 5.3 and 5.4)
 
 Eight training configurations evaluated at two resolutions (1024 and 512):
 
@@ -70,7 +70,7 @@ The strongest run by validation Big Rock IoU is R11. Both its 1024 and 512 varia
 
 ---
 
-## Stage 3 — Final model and deployment-relevant constraints ([`final_model/`](final_model/))
+## Stage 3 - Final model and deployment-relevant constraints ([`final_model/`](final_model/))
 
 Stage 3 takes the two strongest runs from Stage 2 and evaluates them under the four deployment-relevant constraints (parameter count, latency, memory, survivability under simulated radiation faults). Final test-set numbers and the constraint scorecards are in this folder.
 

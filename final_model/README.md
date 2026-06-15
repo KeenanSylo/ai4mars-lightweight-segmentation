@@ -1,4 +1,4 @@
-# final_model — Locked-in model checkpoints + evaluations
+# final_model - Locked-in model checkpoints + evaluations
 
 > **Note on terminology.** The code in this folder uses **SGC** (Space-Grade Constraint, numbered `#1`–`#4`) as shorthand for the four deployment-relevant constraints evaluated against the chosen model. The thesis refers to these as "space-grade constraint 1" through "space-grade constraint 4" or "the four constraints". The mapping is:
 >
@@ -27,27 +27,27 @@ The naming convention is `<version_run>_<encoder>_<resolution>_<descriptor>` so 
 final_model/
 ├── README.md                                       (this file)
 │
-├── v1_R9_MNv3-S_512.pth                            8.8 MB — v1 winner (MNv3-S/512)
+├── v1_R9_MNv3-S_512.pth                            8.8 MB - v1 winner (MNv3-S/512)
 ├── v1_R9_MNv3-S_512_config.json
 ├── v1_R9_MNv3-S_512_evaluation_results.json
 │
-├── v2_R11_MNv4-S_1024.pth                         11.7 MB — research ceiling (fails RAM)
+├── v2_R11_MNv4-S_1024.pth                         11.7 MB - research ceiling (fails RAM)
 ├── v2_R11_MNv4-S_1024_config.json
 ├── v2_R11_MNv4-S_1024_evaluation_results.json
 │
-├── v2_R11_MNv4-S_512.pth                          11.7 MB — chosen deployable
+├── v2_R11_MNv4-S_512.pth                          11.7 MB - chosen deployable
 ├── v2_R11_MNv4-S_512_config.json
 ├── v2_R11_MNv4-S_512_evaluation_results.json
 │
 └── sgc/
     ├── v1_R9_MNv3-S_512_baseline/results.json        SGC #1-3 baseline (v1 R9)
-    ├── v2_R11_MNv4-S_1024_baseline/results.json      SGC #1-3 baseline (v2 R11 @ 1024 — fails #3)
+    ├── v2_R11_MNv4-S_1024_baseline/results.json      SGC #1-3 baseline (v2 R11 @ 1024 - fails #3)
     ├── v2_R11_MNv4-S_512_baseline/results.json       SGC #1-3 baseline (chosen deployable)
     ├── v2_R11_MNv4-S_512_unshielded_chaos/results.json  SGC #4 unshielded (radiation, no defence)
     └── v2_R11_MNv4-S_512_shielded_chaos/results.json    SGC #4 shielded (TMR + clamping)
 ```
 
-## v1 R9 — `v1_R9_MNv3-S_512.pth`
+## v1 R9 - `v1_R9_MNv3-S_512.pth`
 
 Source: `MAIN_ITERATION/experiments/training_run_9_focal_+_tversky_512p_+++/`
 
@@ -81,11 +81,11 @@ Source: `MAIN_ITERATION/experiments/training_run_9_focal_+_tversky_512p_+++/`
 | #2 Max latency / frame | ≤ 500 ms | 56.78 ms | ✓ |
 | #3 Peak ML RAM | ≤ 256 MB | 115.19 MB | ✓ |
 
-## v2 R11 @ 1024 — `v2_R11_MNv4-S_1024.pth`
+## v2 R11 @ 1024 - `v2_R11_MNv4-S_1024.pth`
 
 Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversky_1024p_aug_B/`
 
-**Research ceiling — not deployable (fails SGC #3 memory cap).**
+**Research ceiling - not deployable (fails SGC #3 memory cap).**
 
 | | |
 |---|---|
@@ -119,7 +119,7 @@ Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversk
 
 Why excluded from the deployable set: the model achieves the strongest accuracy in the project (test BR 0.480, mIoU 0.839) but its peak segmentation-tensor RAM at 1024² input exceeds the SGC #3 cap by 150 MB. Following the precedent set in architecture_sweep Cell 05 (MobileViT-XS @ 512, also memory-cap excluded), this model is reported as the research ceiling rather than the deployment candidate.
 
-## v2 R11 @ 512 — `v2_R11_MNv4-S_512.pth` ⭐ Chosen deployable
+## v2 R11 @ 512 - `v2_R11_MNv4-S_512.pth` ⭐ Chosen deployable
 
 Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversky_512p_aug_B/`
 
@@ -153,7 +153,7 @@ Source: `training_configuration_sweep/experiments/training_run_11_focal_+_tversk
 | #2 Max latency / frame | ≤ 500 ms | 49.15 ms (baseline) | ✓ (10× under cap) |
 | **#3 Peak ML RAM** | **≤ 256 MB** | **126.47 MB** (baseline) | **✓** (49 % of cap) |
 
-### SGC #4 — Survivability under simulated radiation
+### SGC #4 - Survivability under simulated radiation
 
 Per-class IoU on min3-100agree under three modes. Chaos = `ChaoticSpaceRadiationInjector` (1–50 random IEEE-754 bit flips on the deepest encoder feature each forward pass). Shielded = `BoundsCheckShield` (activation clamp) + triple-modular-redundancy majority vote.
 
@@ -212,10 +212,10 @@ Hardware:
 
 ### Reading the comparison
 
-- **v2 R11 @ 512 beats v1 R9 on Big Rock IoU by +0.121** (0.446 vs 0.325) on the same test set with the same resolution — the encoder upgrade from MobileNetV3-Small to MobileNetV4-Conv-Small produces a meaningful rare-class improvement at deployable resolution.
+- **v2 R11 @ 512 beats v1 R9 on Big Rock IoU by +0.121** (0.446 vs 0.325) on the same test set with the same resolution - the encoder upgrade from MobileNetV3-Small to MobileNetV4-Conv-Small produces a meaningful rare-class improvement at deployable resolution.
 - **v2 R11 @ 512 vs v2 R11 @ 1024**: the resolution drop costs 0.034 BR IoU and 0.020 mIoU, but pulls peak ML RAM from 406 MB (over cap) to 126 MB (49 % of cap).
 - **mIoU lift over v1 R9**: +0.029 (0.819 vs 0.790).
-- **Encoder advantage at val didn't show up at 512** (val_BR* 0.591 vs v1 R9's 0.599) but did on test (+0.121 BR). Classic val/test divergence — the gold expert test set is the load-bearing benchmark per Section 2.3.4 of the thesis.
+- **Encoder advantage at val didn't show up at 512** (val_BR* 0.591 vs v1 R9's 0.599) but did on test (+0.121 BR). Classic val/test divergence - the gold expert test set is the load-bearing benchmark per Section 2.3.4 of the thesis.
 
 ## Provenance and integrity
 

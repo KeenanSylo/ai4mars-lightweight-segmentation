@@ -14,7 +14,7 @@ For which experiments are in scope for the thesis, see [`../thesis_scope.md`](..
 | Source | AI4Mars (Swan et al., CVPRW 2021) |
 | Subset used | Curiosity NAVCAM only |
 | Training labels | Merged labels at ≥ 3 labellers and > 65% pixel agreement (the release default) |
-| Ignore-pixel value | `255` — excluded from loss and from all metrics |
+| Ignore-pixel value | `255` - excluded from loss and from all metrics |
 | Per-image masks (training only) | The rover mask (`mxy`) and range mask (`rng-30m`) are ORed into the label and overwrite those pixels with `255` before training. The gold test labels already have these masks baked in. |
 
 The Spirit and Opportunity subsets of AI4Mars and the MER NCAM data are out of scope for this thesis and are not used in any run in this repository.
@@ -28,7 +28,7 @@ The expert-labelled gold test set has 322 images and is released at three agreem
 | Variant | Big Rock images / 322 | Role |
 |---|---|---|
 | `min1-100agree` | 53 | reported for transparency |
-| `min2-100agree` | — | reported for transparency |
+| `min2-100agree` | - | reported for transparency |
 | **`min3-100agree`** | **5** | **headline reporting variant** for the thesis (all three labellers agree) |
 
 The headline variant matches the variant under which the closest comparable transformer baseline (Mohammad et al. 2025) reports its rare-class IoU on the same dataset. The other two variants are computed and saved alongside in each run's `evaluation_results.json`.
@@ -56,7 +56,7 @@ After offline refinement, the training set used by this repository contains **16
 | Native input resolution | 1024 × 1024 (the AI4Mars NCAM size) |
 | Working resolution | Variable in this thesis (256, 512, or 1024) per the resolution lever. Default: 1024. |
 | Resize on EDR image | Bilinear (`cv2.INTER_LINEAR`) |
-| Resize on label | Nearest-neighbour (`cv2.INTER_NEAREST`) — preserves discrete class indices |
+| Resize on label | Nearest-neighbour (`cv2.INTER_NEAREST`) - preserves discrete class indices |
 | Channel order | RGB (OpenCV BGR is converted at load time) |
 | Normalization | Divide by `255.0`. No per-channel mean/std subtraction. |
 
@@ -78,7 +78,7 @@ Three named pipelines are defined in [`training/augmentations.py`](../training/a
 
 | Name | Used by | Transforms |
 |---|---|---|
-| `none` | Architecture sweep (Stage 1), and runs R2–R8 of the training-configuration sweep | Just `ToFloat` + `ToTensorV2` — bit-identical to the dataset's no-transform fallback |
+| `none` | Architecture sweep (Stage 1), and runs R2–R8 of the training-configuration sweep | Just `ToFloat` + `ToTensorV2` - bit-identical to the dataset's no-transform fallback |
 | **`basic`** | **R11 (chosen final model), and runs R10/R12/R13** | Horizontal flip (p=0.5), brightness/contrast jitter (±0.15, p=0.5), hue/sat jitter (±5/±10, p=0.3), small affine warp (rotate ±8°, translate ±5%, p=0.3) |
 | `strong` | R13 only | Higher-amplitude versions of all `basic` transforms plus optional Gaussian noise / blur |
 
@@ -125,8 +125,8 @@ All of these are derived analytically from a single confusion matrix per test va
 
 - Pixel accuracy
 - Mean IoU over labelled classes (255 excluded)
-- Per-class IoU, precision, recall, F1, support — for soil, bedrock, sand, Big Rock
-- Macro precision, recall, F1 — over classes with non-zero support
+- Per-class IoU, precision, recall, F1, support - for soil, bedrock, sand, Big Rock
+- Macro precision, recall, F1 - over classes with non-zero support
 
 See [`../metrics.py`](../metrics.py) for the implementation.
 

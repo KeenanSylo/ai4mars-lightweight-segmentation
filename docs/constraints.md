@@ -6,14 +6,14 @@ Each constraint has a fixed threshold drawn from the lightweight rover-segmentat
 
 ---
 
-## SGC #1 — Parameter count
+## SGC #1 - Parameter count
 
 | | |
 |---|---|
 | **What is measured** | Total trainable scalar parameters across all layers of the model |
 | **Threshold** | < 3,000,000 parameters |
 | **How it is measured** | `sum(p.numel() for p in model.parameters())` |
-| **Where in the code** | `sgc_evaluate_GOOD_2.0.py` — `count_params()` |
+| **Where in the code** | `sgc_evaluate_GOOD_2.0.py` - `count_params()` |
 
 ### Rationale
 
@@ -23,7 +23,7 @@ The parameter count is invariant to input resolution, so this constraint applies
 
 ---
 
-## SGC #2 — Worst-case latency
+## SGC #2 - Worst-case latency
 
 | | |
 |---|---|
@@ -34,20 +34,20 @@ The parameter count is invariant to input resolution, so this constraint applies
 
 ### Rationale
 
-500 ms is the worst-case frame budget for a rover autonomy loop where each frame's segmentation must complete before the next frame arrives. The CPU-class measurement protocol approximates the RAD750 deployment envelope — the rover processor runs at ~200 MHz and does not have a GPU. Measuring on a single thread of a commodity CPU gives a conservative upper bound that does not over-promise.
+500 ms is the worst-case frame budget for a rover autonomy loop where each frame's segmentation must complete before the next frame arrives. The CPU-class measurement protocol approximates the RAD750 deployment envelope - the rover processor runs at ~200 MHz and does not have a GPU. Measuring on a single thread of a commodity CPU gives a conservative upper bound that does not over-promise.
 
 A warm-up pass is discarded because the first-inference cold-start cost (PyTorch JIT warm-up, kernel caching) does not reflect the steady-state inference cost that determines whether the autonomy loop holds 2 Hz.
 
 ---
 
-## SGC #3 — Peak segmentation-tensor memory
+## SGC #3 - Peak segmentation-tensor memory
 
 | | |
 |---|---|
 | **What is measured** | Peak resident memory occupied by the segmentation tensors during inference, measured separately from interpreter and library overhead |
 | **Threshold** | < 256 megabytes |
 | **How it is measured** | Process RSS via `psutil.Process(...).memory_info().rss` on CPU, or `torch.cuda.max_memory_allocated()` on GPU. RSS is taken before and after a single forward pass; the difference is the segmentation tensor footprint. |
-| **Where in the code** | `sgc_evaluate_GOOD_2.0.py` — `read_peak_ram_mb()` |
+| **Where in the code** | `sgc_evaluate_GOOD_2.0.py` - `read_peak_ram_mb()` |
 
 ### Rationale
 
@@ -57,14 +57,14 @@ This is the constraint that excludes the 1024 variant of the chosen architecture
 
 ---
 
-## SGC #4 — Survivability under simulated radiation faults
+## SGC #4 - Survivability under simulated radiation faults
 
 | | |
 |---|---|
 | **What is measured** | Per-class IoU on the gold expert test set under simulated bit-flip faults, compared against the same IoU at baseline (no faults) |
 | **Threshold** | The shielded mode must keep per-class IoU within ~0.001 of the baseline |
 | **How it is measured** | A PyTorch forward hook on the encoder's deepest feature map flips between 1 and 5 random bits per forward pass across the IEEE-754 exponent (bits 23–30) and fraction (bits 0–22) ranges. The unshielded mode lets the corrupted activations propagate; the shielded mode applies an activation clamp to a fixed range of [-20, +20] and combines three independent model copies through a per-pixel majority vote (triple-modular redundancy). |
-| **Where in the code** | `sgc_evaluate_GOOD_2.0.py` — `ChaoticSpaceRadiationInjector`, `BoundsCheckShield`, `evaluate_on_loader_tmr` |
+| **Where in the code** | `sgc_evaluate_GOOD_2.0.py` - `ChaoticSpaceRadiationInjector`, `BoundsCheckShield`, `evaluate_on_loader_tmr` |
 
 ### Rationale
 
@@ -80,9 +80,9 @@ The survivability claim is bounded to the injected fault distribution and the de
 
 | Constraint | Threshold | `v2_R11_MNv4-S_512.pth` (chosen) | Verdict |
 |---|---|---|---|
-| SGC #1 — parameters | < 3 M | 3.00 M | PASS |
-| SGC #2 — latency | < 500 ms | 248 ms (max, baseline) | PASS |
-| SGC #3 — memory | < 256 MB | 126 MB (baseline) / 245 MB (shielded) | PASS |
-| SGC #4 — survivability | within measurement noise of baseline | Big Rock IoU recovered to within 0.0003 of baseline | PASS |
+| SGC #1 - parameters | < 3 M | 3.00 M | PASS |
+| SGC #2 - latency | < 500 ms | 248 ms (max, baseline) | PASS |
+| SGC #3 - memory | < 256 MB | 126 MB (baseline) / 245 MB (shielded) | PASS |
+| SGC #4 - survivability | within measurement noise of baseline | Big Rock IoU recovered to within 0.0003 of baseline | PASS |
 
 The same protocol applied to the 1024 reference model fails SGC #2 (1275 ms) and SGC #3 (407 MB).

@@ -1,6 +1,6 @@
 # Big Rock Segmentation on AI4Mars under Space-Grade Constraints
 
-Companion code for the bachelor's thesis *Terrain Detection for Autonomous Martian Rover Exploration — Optimizing Big Rock Detection via Machine Learning under Space-grade Constraints* (Linnaeus University, course 2DV50E, VT 2026).
+Companion code for the bachelor's thesis *Terrain Detection for Autonomous Martian Rover Exploration - Optimizing Big Rock Detection via Machine Learning under Space-grade Constraints* (Linnaeus University, course 2DV50E, VT 2026).
 
 The thesis investigates how architectural and training-related design choices affect rare-class terrain segmentation on the AI4Mars dataset under constrained deployment conditions. A lightweight DeepLabv3+ with a MobileNetV4-Conv-Small encoder at 512×512 input, trained with focal-Tversky loss and basic augmentation, reaches a Big Rock IoU of 0.446 on the gold expert test set at the `min3-100agree` variant, on 3.00 M parameters. A simulated radiation fault injector and a shielding stack (activation clamp + three-copy majority vote) recover the rare-class accuracy to within 0.0003 of the baseline under simulated bit-flip faults.
 

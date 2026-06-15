@@ -1,10 +1,10 @@
-# ITERATION-2 — Cells included in the thesis
+# ITERATION-2 - Cells included in the thesis
 
 This document records which of the ITERATION-2 cells are used as primary evidence in the thesis architecture-selection chapter, and which are excluded.
 
 The exclusions are deliberate methodological choices, not failures. They are documented here so the thesis cell count (9) matches the experiments folder's apparent cell count (15) with a transparent paper trail.
 
-## ✅ Included — 9 cells
+## ✅ Included - 9 cells
 
 These cells form the architecture × resolution sweep used to defend the choice of **DeepLabV3+ + MobileNetV4-Conv-Small @ 1024² (cell 13)** as the v2 backbone.
 
@@ -17,12 +17,12 @@ These cells form the architecture × resolution sweep used to defend the choice 
 | 06 | DLV3+ | MNv4-S | 512 | encoder lever (MNv4-S vs MNv3-S) at 512 |
 | 07 | FPN | MNv3-S | 1024 | decoder × resolution corner |
 | 08 | FPN | MNv3-S | 256 | decoder × resolution corner |
-| 12 | DLV3+ | MNv4-S | 256 | MNv4-S resolution sweep — low |
+| 12 | DLV3+ | MNv4-S | 256 | MNv4-S resolution sweep - low |
 | 13 | DLV3+ | MNv4-S | 1024 | **chosen architecture** for MAIN_ITERATION_V2 |
 
 Together these 9 cells form a clean 3 × 3 grid for `DeepLabV3+ × {MNv3-S, MNv4-S} × {256, 512, 1024}` plus 3 FPN cells at MNv3-S for the decoder ablation.
 
-## ❌ Excluded — 6 cells (reasons below)
+## ❌ Excluded - 6 cells (reasons below)
 
 | Cell | Decoder | Encoder | Resolution | Reason for exclusion |
 |---|---|---|---|---|
@@ -45,7 +45,7 @@ The MobileViT-XS encoder was tested as a hybrid CNN + transformer candidate agai
 
 2. **Deployment risk against the space-grade constraints.** Self-attention quantization to INT8 is significantly less mature than for pure CNNs, and bit-flip SDC behaviour on attention activations is not characterised in the AI4Mars literature. Choosing MViT-XS as the downstream architecture would have inherited unvalidated SGC #2 (INT8) and SGC #5 (SDC) risks.
 
-3. **Quadratic attention activation cost at higher resolution.** Cell 15 (MViT-XS @ 1024) could not be trained at batch=8 on a 25 GB GPU due to O(N²) attention activation memory at 16,384 tokens — a fundamental architectural limit, not a tuning issue. This blocked any direct apples-to-apples comparison with cell 13 (MNv4-Conv-Small @ 1024) at the chosen resolution.
+3. **Quadratic attention activation cost at higher resolution.** Cell 15 (MViT-XS @ 1024) could not be trained at batch=8 on a 25 GB GPU due to O(N²) attention activation memory at 16,384 tokens - a fundamental architectural limit, not a tuning issue. This blocked any direct apples-to-apples comparison with cell 13 (MNv4-Conv-Small @ 1024) at the chosen resolution.
 
 The MViT-XS data points exist in the experiments folder for reproducibility but are not part of the load-bearing architecture argument.
 
