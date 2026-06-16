@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the thesis below."
-title: "Terrain Detection for Autonomous Martian Rover Exploration: Optimizing Big Rock Detection via Machine Learning under Space-grade Constraints"
+title: "Terrain Detection for Autonomous Mars Rovers - Optimizing Big Rock Segmentation via Machine Learning under Space-grade Constraints"
 authors:
   - family-names: Arsianto
     given-names: Keenan Syahlevi
