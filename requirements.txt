@@ -1,15 +1,24 @@
-torch
-torchvision
-segmentation-models-pytorch
-torchinfo
-onnx
-onnxruntime
-onnxscript
-numpy
-pandas
-opencv-python-headless
-albumentations
-scikit-learn
-tqdm
-matplotlib
-psutil
+# --- Deep Learning Core & Architectures ---
+torch                         # Core PyTorch library for tensor computations, deep learning, and GPU acceleration
+torchvision                   # PyTorch's official library for computer vision datasets, models, and image transforms
+segmentation-models-pytorch   # High-level library containing pre-built neural network architectures specifically for semantic segmentation (e.g., Unet, Linknet, PSPNet)
+torchinfo                     # Provides detailed, structured summaries of PyTorch model architectures (layer shapes, parameter counts, memory usage)
+
+# --- Model Deployment & Export ---
+onnx                          # Open Neural Network Exchange format; used to serialize and share trained models across different frameworks
+onnxruntime                   # High-performance inference engine used to run trained ONNX models efficiently on various hardware
+onnxscript                    # Tooling to write and convert Python/PyTorch code directly into ONNX models using standard Python syntax
+
+# --- Data Manipulation & Math ---
+numpy                         # Fundamental package for scientific computing, multi-dimensional arrays, and advanced mathematical operations
+pandas                        # Data analysis and manipulation tool used for handling structured data (DataFrames), CSVs, and metadata
+
+# --- Image Processing & Data Augmentation ---
+opencv-python-headless        # Lightweight version of OpenCV (computer vision/image processing) without GUI dependencies, optimized for server/Docker environments
+albumentations                # High-performance, flexible library dedicated to fast image augmentation for deep learning tasks
+
+# --- Evaluation & Utilities ---
+scikit-learn                  # Machine learning utility library used here for data splitting (train/test), metrics calculation, and evaluation
+tqdm                          # Extensible progress bar tracking for loops, training epochs, and data processing steps
+matplotlib                    # Plotting and visualization library used to display training curves, loss charts, and prediction images
+psutil                        # Process and system utilities library used to monitor hardware resource usage (CPU, RAM, disk) during training or inference
