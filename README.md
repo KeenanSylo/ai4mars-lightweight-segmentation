@@ -1,4 +1,8 @@
-# Big Rock Segmentation on AI4Mars under Space-Grade Constraints
+# Space-Grade Terrain Detection for Autonomous Mars Rovers
+
+  ## ~ Big Rock Segmentation on AI4Mars under Space-Grade Constraints
+
+  ### Reseachers: Yashwanth Krishna Devanaboina & Keenan Syahlevi Arsianto
 
 Companion code for the bachelor's thesis *Terrain Detection for Autonomous Mars Rovers - Optimizing Big Rock Segmentation via Machine Learning under Space-grade Constraints* (Linnaeus University, course 2DV50E, VT 2026).
 
