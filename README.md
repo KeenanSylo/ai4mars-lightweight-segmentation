@@ -1,6 +1,6 @@
-# Space-Grade Terrain Detection for Autonomous Mars Rovers
+# Terrain Detection for Autonomous Mars Rovers
 
-  ## ~ Big Rock Segmentation on AI4Mars under Space-Grade Constraints
+  ## ~ Big Rock Segmentation on NASA's AI4Mars Dataset under Space-Grade Constraints
 
   ### Reseachers: Yashwanth Krishna Devanaboina & Keenan Syahlevi Arsianto
 
